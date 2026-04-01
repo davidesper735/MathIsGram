@@ -64,7 +64,7 @@ async function cargarEjercicio() {
         <h3>🖼️ Imágenes</h3>
         <div class="imagenes-grid">
           ${ej.imagenes.map(url => `
-            <img src="http://localhost:5000${url}" 
+            <img src="${url}" 
                  alt="imagen del ejercicio" 
                  class="ejercicio-imagen"
                  onclick="abrirImagen('http://localhost:5000${url}')"/>
