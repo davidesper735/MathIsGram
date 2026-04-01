@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ejercicio — ForoMat</title>
+  <link rel="stylesheet" href="css/estilos.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-logo" onclick="window.location.href='index.html'" style="cursor:pointer">∑ ForoMat</div>
+    <div class="nav-links">
+      <span id="nav-usuario"></span>
+      <button onclick="window.location.href='index.html'">← Volver</button>
+    </div>
+  </nav>
+
+  <div class="ejercicio-pagina">
+
+    <!-- CARGANDO -->
+    <div id="estado-cargando" class="cargando">Cargando ejercicio...</div>
+
+    <!-- CONTENIDO -->
+    <div id="ejercicio-contenido" style="display:none">
+
+      <div class="ejercicio-header">
+        <div class="ejercicio-titulo-row">
+          <h1 id="ej-titulo"></h1>
+          <div id="ej-acciones-top"></div>
+        </div>
+        <div class="ejercicio-badges" id="ej-badges"></div>
+        <div class="ejercicio-meta" id="ej-meta"></div>
+      </div>
+
+      <div class="ejercicio-grid">
+
+        <!-- COLUMNA PRINCIPAL -->
+        <div class="ejercicio-principal">
+
+          <div class="ejercicio-seccion">
+            <h3>📝 Enunciado</h3>
+            <p id="ej-descripcion"></p>
+          </div>
+
+          <div class="ejercicio-seccion">
+            <h3>📐 Fórmula</h3>
+            <div class="ejercicio-formula" id="ej-formula"></div>
+          </div>
+
+          <div id="ej-solucion-bloque" class="ejercicio-seccion" style="display:none">
+            <h3>✅ Solución</h3>
+            <p id="ej-solucion"></p>
+          </div>
+
+          <div id="ej-tags-bloque" class="ejercicio-seccion">
+            <div class="tarjeta-tags" id="ej-tags"></div>
+          </div>
+
+          <!-- ACCIONES -->
+          <div class="ejercicio-acciones" id="ej-acciones"></div>
+
+          <!-- COMENTARIOS -->
+          <div class="ejercicio-seccion">
+            <h3>💬 Comentarios <span id="ej-num-comentarios" style="color:var(--text-muted);font-size:0.9rem"></span></h3>
+            <div id="ej-comentarios" class="comentarios-lista"></div>
+            <div id="ej-comentario-input" style="display:none" class="comentario-input" style="margin-top:1rem">
+              <input type="text" id="nuevo-comentario" placeholder="Escribe un comentario..."/>
+              <button class="btn-primary" onclick="comentar()">Enviar</button>
+            </div>
+            <p id="ej-comentario-login" style="display:none;color:var(--text-muted);font-size:0.85rem;margin-top:0.75rem">
+              <a href="index.html" style="color:var(--primary)">Inicia sesión</a> para comentar
+            </p>
+          </div>
+
+        </div>
+
+        <!-- COLUMNA LATERAL -->
+        <div class="ejercicio-lateral">
+
+          <div class="lateral-card">
+            <h4>👤 Autor</h4>
+            <div class="lateral-autor" id="lateral-autor"></div>
+          </div>
+
+          <div class="lateral-card">
+            <h4>📊 Estadísticas</h4>
+            <div class="lateral-stats" id="lateral-stats"></div>
+          </div>
+
+          <div class="lateral-card">
+            <h4>📂 Categoría</h4>
+            <div id="lateral-categoria"></div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/ejercicio.js"></script>
+</body>
+</html>

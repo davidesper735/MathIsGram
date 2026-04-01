@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ForoMat — Comunidad Matemática</title>
+  <link rel="stylesheet" href="css/estilos.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-logo" onclick="mostrarSeccion('inicio')">
+      <div class="nav-logo-icon">∑</div>
+      Foro<span>Mat</span>
+    </div>
+
+    <div class="nav-center">
+      <svg class="nav-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input class="nav-search" type="text" id="buscador-input" placeholder="Buscar ejercicios..." oninput="buscarEjercicios()"/>
+    </div>
+
+    <div class="nav-right" id="nav-right">
+      <span id="nav-usuario-label"></span>
+
+      <button class="nav-btn" id="btn-ranking" onclick="mostrarSeccion('ranking')" style="display:none">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        Ranking
+      </button>
+
+      <button class="nav-btn" id="btn-notificaciones" onclick="toggleNotificaciones()" style="display:none">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span id="badge-notif" class="badge-notif" style="display:none">0</span>
+      </button>
+
+      <div class="nav-avatar" id="btn-perfil" onclick="mostrarPerfil()" style="display:none" title="Mi perfil"></div>
+
+      <button class="nav-btn primary" id="btn-nuevo" onclick="window.location.href='nuevo-ejercicio.html'" style="display:none">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Publicar
+      </button>
+
+      <button class="nav-btn" id="btn-login" onclick="mostrarModal('login')">Iniciar sesión</button>
+      <button class="nav-btn primary" id="btn-registro" onclick="mostrarModal('registro')">Registrarse</button>
+      <button class="nav-btn" id="btn-logout" onclick="cerrarSesion()" style="display:none">Salir</button>
+    </div>
+
+    <!-- Panel notificaciones -->
+    <div id="panel-notificaciones" class="panel-notif" style="display:none">
+      <div class="panel-notif-header">
+        <h4>Notificaciones</h4>
+        <button onclick="marcarTodasLeidas()">Marcar leídas</button>
+      </div>
+      <div id="lista-notificaciones" class="lista-notif"></div>
+    </div>
+  </nav>
+
+  <!-- SECCIÓN INICIO -->
+  <section id="seccion-inicio" class="seccion activa">
+    <div class="hero">
+      <div class="hero-glow"></div>
+      <div class="hero-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Comunidad matemática
+      </div>
+      <h1>Aprende y comparte<br/><span>matemáticas</span> juntos</h1>
+      <p>Sube ejercicios, discute soluciones y aprende con una comunidad apasionada por las matemáticas.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="mostrarSeccion('explorar')">
+          Explorar ejercicios
+        </button>
+        <button class="btn-secundario" id="hero-btn-registro" onclick="mostrarModal('registro')">
+          Unirse gratis
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-num" id="stat-ejercicios">0</div>
+          <div class="hero-stat-label">Ejercicios</div>
+        </div>
+        <div>
+          <div class="hero-stat-num" id="stat-categorias">12</div>
+          <div class="hero-stat-label">Categorías</div>
+        </div>
+        <div>
+          <div class="hero-stat-num" id="stat-comentarios">0</div>
+          <div class="hero-stat-label">Comentarios</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN EXPLORAR -->
+  <section id="seccion-explorar" class="seccion">
+    <div class="app-layout">
+
+      <!-- SIDEBAR IZQUIERDA -->
+      <aside class="sidebar-left">
+        <div class="sidebar-section">Navegación</div>
+
+        <button class="sidebar-item activo" id="side-inicio" onclick="mostrarSeccion('inicio')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Inicio
+        </button>
+
+        <button class="sidebar-item" id="side-explorar" onclick="mostrarSeccion('explorar')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          Explorar
+        </button>
+
+        <button class="sidebar-item" id="side-ranking" onclick="mostrarSeccion('ranking')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          Ranking
+        </button>
+
+        <button class="sidebar-item" id="side-perfil" onclick="mostrarPerfil()" style="display:none">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Mi perfil
+        </button>
+
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-section">Categorías</div>
+
+        <button class="sidebar-item" onclick="filtrarCategoria('')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Todas
+        </button>
+        <button class="sidebar-item" onclick="filtrarCategoria('integral')">∫ Integrales</button>
+        <button class="sidebar-item" onclick="filtrarCategoria('derivada')">∂ Derivadas</button>
+        <button class="sidebar-item" onclick="filtrarCategoria('limite')">lim Límites</button>
+        <button class="sidebar-item" onclick="filtrarCategoria('ecuacion-diferencial')">dy Ec. Dif.</button>
+        <button class="sidebar-item" onclick="filtrarCategoria('algebra-lineal')">[] Álgebra Lin.</button>
+        <button class="sidebar-item" onclick="filtrarCategoria('probabilidad')">% Probabilidad</button>
+        <button class="sidebar-item" onclick="filtrarCategoria('estadistica')">~ Estadística</button>
+        <button class="sidebar-item" onclick="filtrarCategoria('geometria')">△ Geometría</button>
+        <button class="sidebar-item" onclick="filtrarCategoria('trigonometria')">sin Trigonometría</button>
+        <button class="sidebar-item" onclick="filtrarCategoria('otro')">· Otro</button>
+      </aside>
+
+      <!-- FEED CENTRAL -->
+      <main class="feed">
+
+        <!-- Toolbar -->
+        <div class="feed-toolbar">
+          <span class="toolbar-label">Ver</span>
+          <button class="toolbar-btn activo" id="tb-recientes" onclick="cambiarOrden('recientes', this)">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Recientes
+          </button>
+          <button class="toolbar-btn" id="tb-populares" onclick="cambiarOrden('populares', this)">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            Populares
+          </button>
+          <button class="toolbar-btn" id="tb-comentados" onclick="cambiarOrden('comentados', this)">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Comentados
+          </button>
+          <div class="toolbar-sep"></div>
+          <select class="toolbar-select" id="filtro-dificultad" onchange="cargarEjercicios()">
+            <option value="">Toda dificultad</option>
+            <option value="facil">🟢 Fácil</option>
+            <option value="medio">🟡 Medio</option>
+            <option value="dificil">🔴 Difícil</option>
+          </select>
+        </div>
+
+        <!-- Lista ejercicios -->
+        <div id="lista-ejercicios">
+          <p class="cargando">Cargando ejercicios...</p>
+        </div>
+
+      </main>
+
+      <!-- SIDEBAR DERECHA -->
+      <aside class="sidebar-right">
+
+        <!-- Widget top ejercicios -->
+        <div class="widget">
+          <div class="widget-header">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+            Top ejercicios
+          </div>
+          <div class="widget-body" id="widget-top" style="padding:0.5rem 0">
+            <p style="color:var(--text3);font-size:0.8rem;padding:0.5rem 1.1rem">Cargando...</p>
+          </div>
+        </div>
+
+        <!-- Widget categorías -->
+        <div class="widget">
+          <div class="widget-header">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Categorías
+          </div>
+          <div class="widget-categorias">
+            <span class="cat-chip activo" onclick="filtrarCategoria('')">Todas</span>
+            <span class="cat-chip" onclick="filtrarCategoria('integral')">Integrales</span>
+            <span class="cat-chip" onclick="filtrarCategoria('derivada')">Derivadas</span>
+            <span class="cat-chip" onclick="filtrarCategoria('limite')">Límites</span>
+            <span class="cat-chip" onclick="filtrarCategoria('ecuacion-diferencial')">Ec. Dif.</span>
+            <span class="cat-chip" onclick="filtrarCategoria('algebra-lineal')">Álgebra Lin.</span>
+            <span class="cat-chip" onclick="filtrarCategoria('probabilidad')">Probabilidad</span>
+            <span class="cat-chip" onclick="filtrarCategoria('estadistica')">Estadística</span>
+            <span class="cat-chip" onclick="filtrarCategoria('geometria')">Geometría</span>
+            <span class="cat-chip" onclick="filtrarCategoria('trigonometria')">Trigonometría</span>
+            <span class="cat-chip" onclick="filtrarCategoria('otro')">Otro</span>
+          </div>
+        </div>
+
+        <!-- Widget info -->
+        <div class="widget">
+          <div class="widget-header">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            Acerca de ForoMat
+          </div>
+          <div class="widget-body">
+            <p style="font-size:0.82rem;color:var(--text2);line-height:1.6;margin-bottom:0.75rem">Comunidad para compartir y discutir ejercicios matemáticos. Usa LaTeX para escribir fórmulas.</p>
+            <button class="btn-primary" style="width:100%;justify-content:center;display:flex;gap:0.4rem" onclick="window.location.href='nuevo-ejercicio.html'">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Publicar ejercicio
+            </button>
+          </div>
+        </div>
+
+      </aside>
+    </div>
+  </section>
+
+  <!-- SECCIÓN RANKING -->
+  <section id="seccion-ranking" class="seccion">
+    <div class="ranking-container">
+      <div class="ranking-header">
+        <h1>🏆 Ranking</h1>
+        <p>Los ejercicios más valorados por la comunidad</p>
+      </div>
+      <div class="ranking-tabs">
+        <button class="tab-btn activo" onclick="cambiarRanking('likes', this)">❤️ Más likes</button>
+        <button class="tab-btn" onclick="cambiarRanking('comentarios', this)">💬 Más comentados</button>
+        <button class="tab-btn" onclick="cambiarRanking('guardados', this)">🔖 Más guardados</button>
+        <button class="tab-btn" onclick="cambiarRanking('recientes', this)">🕐 Recientes</button>
+      </div>
+      <div id="lista-ranking" class="lista-ranking"></div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN PERFIL -->
+  <section id="seccion-perfil" class="seccion">
+    <div class="perfil-container">
+      <div class="perfil-header">
+        <div class="perfil-avatar" id="perfil-avatar">?</div>
+        <div class="perfil-info">
+          <h2 id="perfil-nombre"></h2>
+          <p id="perfil-email"></p>
+        </div>
+      </div>
+      <div class="perfil-stats" id="perfil-stats"></div>
+      <div class="perfil-tabs">
+        <button class="tab-btn activo" onclick="cambiarTab('publicados')">Mis ejercicios</button>
+        <button class="tab-btn" onclick="cambiarTab('guardados')">Guardados</button>
+      </div>
+      <div id="tab-publicados" class="tab-contenido activo">
+        <div id="lista-publicados"></div>
+      </div>
+      <div id="tab-guardados" class="tab-contenido">
+        <div id="lista-guardados"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL LOGIN -->
+  <div id="modal-login" class="modal">
+    <div class="modal-contenido">
+      <button class="cerrar-modal" onclick="cerrarModal('login')">✕</button>
+      <h2>Iniciar sesión</h2>
+      <input type="email" id="login-email" placeholder="Email"/>
+      <input type="password" id="login-password" placeholder="Contraseña"/>
+      <button class="btn-primary" onclick="login()">Entrar</button>
+      <p id="login-error" class="error"></p>
+    </div>
+  </div>
+
+  <!-- MODAL REGISTRO -->
+  <div id="modal-registro" class="modal">
+    <div class="modal-contenido">
+      <button class="cerrar-modal" onclick="cerrarModal('registro')">✕</button>
+      <h2>Crear cuenta</h2>
+      <input type="text" id="registro-nombre" placeholder="Nombre"/>
+      <input type="email" id="registro-email" placeholder="Email"/>
+      <input type="password" id="registro-password" placeholder="Contraseña"/>
+      <button class="btn-primary" onclick="registro()">Registrarse</button>
+      <p id="registro-error" class="error"></p>
+    </div>
+  </div>
+
+  <!-- MODAL DETALLE -->
+  <div id="modal-detalle" class="modal">
+    <div class="modal-contenido modal-grande" id="detalle-contenido"></div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

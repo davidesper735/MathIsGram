@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Editar Ejercicio — ForoMat</title>
+  <link rel="stylesheet" href="css/estilos.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://unpkg.com/mathlive"></script>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-logo" onclick="window.location.href='index.html'" style="cursor:pointer">∑ ForoMat</div>
+    <div class="nav-links">
+      <button onclick="window.location.href='index.html'">← Volver</button>
+    </div>
+  </nav>
+
+  <div class="nueva-pagina">
+
+    <div class="nueva-header">
+      <h1>✏️ Editar ejercicio</h1>
+      <p>Modifica los datos de tu ejercicio</p>
+    </div>
+
+    <div class="nueva-grid">
+
+      <div class="nueva-form">
+
+        <div class="campo-grupo">
+          <label>Título *</label>
+          <input type="text" id="ej-titulo" placeholder="Título del ejercicio"/>
+        </div>
+
+        <div class="campo-grupo">
+          <label>Descripción *</label>
+          <textarea id="ej-descripcion" placeholder="Descripción o enunciado..."></textarea>
+        </div>
+
+        <div class="campo-grupo">
+          <label>Fórmula *</label>
+          <math-field id="ej-formula"></math-field>
+        </div>
+
+        <div class="campo-grupo">
+          <label>Solución <span style="color:var(--text-muted)">(opcional)</span></label>
+          <textarea id="ej-solucion" placeholder="Solución..."></textarea>
+        </div>
+
+        <div class="campo-fila">
+          <div class="campo-grupo">
+            <label>Categoría</label>
+            <select id="ej-categoria">
+              <option value="integral">Integral</option>
+              <option value="derivada">Derivada</option>
+              <option value="limite">Límite</option>
+              <option value="ecuacion-diferencial">Ec. Diferencial</option>
+              <option value="algebra-lineal">Álgebra Lineal</option>
+              <option value="calculo-multivariable">Cálculo Multivariable</option>
+              <option value="serie-sucesion">Series y Sucesiones</option>
+              <option value="probabilidad">Probabilidad</option>
+              <option value="estadistica">Estadística</option>
+              <option value="geometria">Geometría</option>
+              <option value="trigonometria">Trigonometría</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+
+          <div class="campo-grupo">
+            <label>Dificultad</label>
+            <select id="ej-dificultad">
+              <option value="facil">🟢 Fácil</option>
+              <option value="medio">🟡 Medio</option>
+              <option value="dificil">🔴 Difícil</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="campo-grupo">
+          <label>Tags <span style="color:var(--text-muted)">(separados por coma)</span></label>
+          <input type="text" id="ej-tags" placeholder="Ej: sustitución, trigonométrica"/>
+        </div>
+
+        <p id="ej-error" class="error"></p>
+
+        <div class="nueva-botones">
+          <button class="btn-eliminar" onclick="eliminarEjercicio()">🗑️ Eliminar ejercicio</button>
+          <button class="btn-secundario" onclick="window.location.href='index.html'">Cancelar</button>
+          <button class="btn-primary" onclick="guardarCambios()">💾 Guardar cambios</button>
+        </div>
+
+      </div>
+
+      <div class="nueva-preview">
+        <div class="preview-card">
+          <h3>Vista previa</h3>
+          <div class="preview-titulo" id="prev-titulo">Título</div>
+          <div class="preview-badges" id="prev-badges">
+            <span class="badge badge-categoria" id="prev-categoria">integral</span>
+            <span class="badge badge-medio" id="prev-dificultad">medio</span>
+          </div>
+          <div class="preview-formula-box" id="prev-formula">
+            <span style="color:var(--text-muted)">Fórmula...</span>
+          </div>
+          <div class="preview-desc" id="prev-descripcion">Descripción...</div>
+          <div class="preview-tags" id="prev-tags"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/editar-ejercicio.js"></script>
+</body>
+</html>

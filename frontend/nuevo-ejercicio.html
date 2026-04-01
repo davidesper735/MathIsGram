@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nuevo Ejercicio — ForoMat</title>
+  <link rel="stylesheet" href="css/estilos.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://unpkg.com/mathlive"></script>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-logo" onclick="window.location.href='index.html'" style="cursor:pointer">∑ ForoMat</div>
+    <div class="nav-links">
+      <button onclick="window.location.href='index.html'">← Volver</button>
+    </div>
+  </nav>
+
+  <div class="nueva-pagina">
+
+    <div class="nueva-header">
+      <h1>📐 Subir nuevo ejercicio</h1>
+      <p>Comparte un ejercicio con la comunidad matemática</p>
+    </div>
+
+    <div class="nueva-grid">
+
+      <!-- COLUMNA IZQUIERDA: formulario -->
+      <div class="nueva-form">
+
+        <div class="campo-grupo">
+          <label>Título del ejercicio *</label>
+          <input type="text" id="ej-titulo" placeholder="Ej: Integral por sustitución trigonométrica"/>
+        </div>
+
+        <div class="campo-grupo">
+          <label>Descripción o enunciado *</label>
+          <textarea id="ej-descripcion" placeholder="Describe el ejercicio, contexto o lo que se pide resolver..."></textarea>
+        </div>
+
+        <div class="campo-grupo">
+          <label>Fórmula *</label>
+          <math-field id="ej-formula"></math-field>
+        </div>
+
+        <div class="campo-grupo">
+          <label>Solución <span style="color:var(--text-muted)">(opcional)</span></label>
+          <textarea id="ej-solucion" placeholder="Escribe el desarrollo o resultado de la solución..."></textarea>
+        </div>
+
+        <div class="campo-fila">
+          <div class="campo-grupo">
+            <label>Categoría *</label>
+            <select id="ej-categoria">
+              <option value="integral">Integral</option>
+              <option value="derivada">Derivada</option>
+              <option value="limite">Límite</option>
+              <option value="ecuacion-diferencial">Ec. Diferencial</option>
+              <option value="algebra-lineal">Álgebra Lineal</option>
+              <option value="calculo-multivariable">Cálculo Multivariable</option>
+              <option value="serie-sucesion">Series y Sucesiones</option>
+              <option value="probabilidad">Probabilidad</option>
+              <option value="estadistica">Estadística</option>
+              <option value="geometria">Geometría</option>
+              <option value="trigonometria">Trigonometría</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+
+          <div class="campo-grupo">
+            <label>Dificultad</label>
+            <select id="ej-dificultad">
+              <option value="facil">🟢 Fácil</option>
+              <option value="medio" selected>🟡 Medio</option>
+              <option value="dificil">🔴 Difícil</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="campo-grupo">
+          <label>Tags <span style="color:var(--text-muted)">(separados por coma)</span></label>
+          <input type="text" id="ej-tags" placeholder="Ej: sustitución, trigonométrica, parcial"/>
+        </div>
+
+        <div class="campo-grupo">
+  <label>Imágenes <span style="color:var(--text-muted)">(opcional, máx. 3)</span></label>
+  <div class="upload-area" id="upload-area" onclick="document.getElementById('ej-imagenes').click()">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+    <p>Haz clic para subir imágenes</p>
+    <span>PNG, JPG, GIF hasta 5MB</span>
+  </div>
+  <input type="file" id="ej-imagenes" accept="image/*" multiple style="display:none" onchange="previsualizarImagenes(event)"/>
+  <div class="imagenes-preview" id="imagenes-preview"></div>
+</div>
+
+        <p id="ej-error" class="error"></p>
+
+        <div class="nueva-botones">
+          <button class="btn-secundario" onclick="window.location.href='index.html'">Cancelar</button>
+          <button class="btn-primary" onclick="publicar()">📤 Publicar ejercicio</button>
+        </div>
+
+      </div>
+
+      <!-- COLUMNA DERECHA: preview -->
+      <div class="nueva-preview">
+        <div class="preview-card">
+          <h3>Vista previa</h3>
+          <div class="preview-titulo" id="prev-titulo">Título del ejercicio</div>
+          <div class="preview-badges" id="prev-badges">
+            <span class="badge badge-categoria" id="prev-categoria">integral</span>
+            <span class="badge badge-medio" id="prev-dificultad">medio</span>
+          </div>
+          <div class="preview-formula-box" id="prev-formula">
+            <span style="color:var(--text-muted)">La fórmula aparecerá aquí...</span>
+          </div>
+          <div class="preview-desc" id="prev-descripcion">La descripción aparecerá aquí...</div>
+          <div class="preview-tags" id="prev-tags"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/nuevo-ejercicio.js"></script>
+</body>
+</html>
