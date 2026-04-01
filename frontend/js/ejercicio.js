@@ -1,4 +1,4 @@
-const API = 'http://localhost:5000/api';
+const API = 'https://foromat-backend.onrender.com/api';
 const usuarioActual = JSON.parse(localStorage.getItem('usuario'));
 const tokenActual = localStorage.getItem('token');
 
